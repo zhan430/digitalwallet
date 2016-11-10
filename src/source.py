@@ -1,15 +1,15 @@
 import functions as fc
 import csv
 import sys, getopt
-print sys.argv
+
 if len(sys.argv) != 6:
 	raise getopt.GetoptError("Need Exactly 6 Arguments")
 
 g = fc.Create(sys.argv[1])
 
-f1 = open(sys.argv[3], "wb")
-f2 = open(sys.argv[4], "wb")
-f3 = open(sys.argv[5], "wb")
+f1 = open(sys.argv[3], "w+")
+f2 = open(sys.argv[4], "w+")
+f3 = open(sys.argv[5], "w+")
 
 with open(sys.argv[2],"rU") as csvfile:
 	reader = csv.reader(csvfile, skipinitialspace = True)
