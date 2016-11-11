@@ -10,15 +10,18 @@ f1 = open(sys.argv[3], "w+")
 f2 = open(sys.argv[4], "w+")
 f3 = open(sys.argv[5], "w+")
 
-with open(sys.argv[2],"rU") as csvfile:
-	reader = csv.reader(csvfile, skipinitialspace = True)
-	csv.field_size_limit(sys.maxsize)
-	reader.next()
-	for row in reader:
-		if len(row) < 5:
-			continue
-		if row[1].isdigit() and row[2].isdigit():
-			fc.WriteToOutput(f1,f2,f3,fc.get_degree(row[1],row[2],g))
+stream = open(sys.argv[2],"r")
+line = stream.readline()
+while line:
+	line = stream.readline()
+	row = line.split(',')
+	if len(row) < 5:
+		continue
+	u1, u2 = row[1].strip(), row[2].strip()	
+	if u1.isdigit() and u2.isdigit():
+		fc.WriteToOutput(f1,f2,f3,fc.get_degree(u1,u2,g))
+
+stream.close()
 f1.close()
 f2.close()
 f3.close()
