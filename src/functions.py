@@ -10,19 +10,20 @@ def Create(filename):
 			  records in batch_payment.csv
 	"""
 	g = nx.Graph()
-	with open(filename, 'rU') as csvfile:
-		reader = csv.reader(csvfile, skipinitialspace = True)
-		csv.field_size_limit(sys.maxsize)
-		reader.next()
-		for row in reader:
-			# Check invalid line. Just in case.
-			if len(row) < 5:
-				continue
-			# Check whether user id is valid.
-			if row[1].isdigit() and row[2].isdigit():
-				g.add_edge(row[1],row[2])
+	batch = open(filename, "r")
+	line = batch.readline()
+	while line:
+		line = batch.readline()
+		row = line.split(',')
+		# Check invalid line. Just in case.
+		if len(row) < 5:
+			continue
+		u1, u2 = row[1].strip(), row[2].strip()
+		# Check whether user id is valid.
+		if u1.isdigit() and u2.isdigit():
+			g.add_edge(u1,u2)
+	batch.close()
 	return g
-
 def get_degree(user1, user2,graph):
 	"""
 	Input: user1 id (str)
